@@ -7,34 +7,19 @@
 
     <form>
       <div class="mb-3">
-        <label>Username</label>
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="username"
-          name="username"
-        >
+        <label>Email</label>
+        <input type="email" class="form-control">
       </div>
 
       <div class="mb-3">
         <label>Password</label>
-        <input
-          type="password"
-          class="form-control"
-          [(ngModel)]="password"
-          name="password"
-          required
-        >
+        <input type="password" class="form-control">
       </div>
 
-      <button
-        type="button"
-        class="btn btn-primary w-100 mb-3"
-        (click)="onLogin()">
+      <button class="btn btn-primary w-100 mb-3">
         Đăng nhập
       </button>
     </form>
-
 
     <div class="text-center">
       <a routerLink="/forgot-password" class="d-block mb-2">
