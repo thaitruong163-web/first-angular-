@@ -1,0 +1,51 @@
+<div class="container vh-100 d-flex justify-content-center align-items-center">
+  <div class="card p-4 shadow login-card">
+
+    <h3 class="text-center fw-bold mb-4">
+      Create Account
+    </h3>
+
+    <form (ngSubmit)="onRegister()" #registerForm="ngForm">
+
+      <div class="mb-3">
+        <label>Email</label>
+        <input type="email" class="form-control" name="username" [(ngModel)]="username" required #usernameCtrl="ngModel">
+        @if (usernameCtrl.touched && usernameCtrl.errors?.['required']) {
+        <small class="text-danger">
+          Username là bắt buộc
+        </small>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label>Password</label>
+        <input type="password" class="form-control" name="password" [(ngModel)]="password" required  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$" #password="ngModel">
+        @if (registerForm.controls['password']?.touched && registerForm.controls['password']?.errors?.['required']) {
+          <small class="text-danger">
+            Password là bắt buộc
+          </small>
+        }
+        @if (registerForm.controls['password']?.touched && registerForm.controls['password']?.errors?.['pattern']) {
+          <small class="text-danger d-block">
+            Password phải có chữ hoa, chữ thường và số
+          </small>
+      }
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-success w-100"
+        [disabled]="registerForm.invalid"
+      >
+        Đăng ký
+      </button>
+
+    </form>
+
+
+    <div class="text-center">
+      <a routerLink="/login">Back to login</a>
+    </div>
+
+  </div>
+</div>
