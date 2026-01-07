@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { UserService } from '../../shared/service/user.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -9,28 +10,41 @@ import { Router } from '@angular/router';
   imports: [FormsModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
+  
 })
 
-export class RegisterComponent {
+export class RegisterComponent implements OnInit, OnDestroy {
   username = '';
   password = '';
   confirmPassword = '';
   errorMessage = '';
+  sub$ = new Subscription();
 
-  registerForm: FormGroup;
+  registerForm!: FormGroup;
+// giữ subscription khi tạo ra subscribe
+  private registerSub!: Subscription;
 
   constructor(
     private userService: UserService,
     private router: Router,
     private fb: FormBuilder
-  ) {
+  ) {}
+
+  ngOnInit(): void {
+    this.initRegisterForm();
+  }
+
+  private initRegisterForm(): void {
     this.registerForm = this.fb.group({
       username: ['',[Validators.required, Validators.minLength(3)]],
       password: ['',[
         Validators.required,
-        Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$')
+        Validators.pattern(this.passwordPattern())
       ]],
     });
+  }
+  private passwordPattern(): RegExp {
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
   }
 
   onRegister() {
@@ -47,6 +61,11 @@ export class RegisterComponent {
         this.errorMessage = 'Đăng ký thất bại';
       }
     });
-    
+    this.sub$.add(this.registerSub);
+  }
+
+  //hủy subscription
+  ngOnDestroy(): void {
+    this.sub$.unsubscribe();
   }
 }

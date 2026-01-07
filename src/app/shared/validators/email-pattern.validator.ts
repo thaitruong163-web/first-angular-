@@ -1,18 +1,13 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 
-export function emailPatternValidator(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const value = control.value;
+export function EmailPatternValidator(
+  control: AbstractControl
+): ValidationErrors | null {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!value) {
-      return { required: true }; // bắt buộc nhập
-    }
+  if (!control.value) return { required: true };
 
-    const emailRegex =
-      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-    return emailRegex.test(value)
-      ? null
-      : { emailPattern: true };
-  };
+  return emailRegex.test(control.value)
+    ? null
+    : { emailPattern: true };
 }
