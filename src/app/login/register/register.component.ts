@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../shared/service/user.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 @Component({
   standalone: true,
   selector: 'app-register',
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
   
@@ -16,13 +16,10 @@ import { Subscription } from 'rxjs';
 export class RegisterComponent implements OnInit, OnDestroy {
   username = '';
   password = '';
-  confirmPassword = '';
   errorMessage = '';
-  sub$ = new Subscription();
-
   registerForm!: FormGroup;
-// giữ subscription khi tạo ra subscribe
-  private registerSub!: Subscription;
+  // subscription tổng
+  sub$ = new Subscription();
 
   constructor(
     private userService: UserService,
@@ -48,11 +45,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   onRegister() {
-    console.log('REGISTER SUCCESS', {
-      username: this.username
-    });
-  
-    this.userService.register(this.username, this.password).subscribe({
+    if (this.registerForm.invalid) return;
+    const { username, password } = this.registerForm.value;
+    console.log('REGISTER SUCCESS: ', username);
+
+    const sampleSub$ = this.userService.register(this.username, this.password).subscribe({
       next: () => {
         alert('Đăng ký thành công');
         this.router.navigate(['/login']);
@@ -61,7 +58,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.errorMessage = 'Đăng ký thất bại';
       }
     });
-    this.sub$.add(this.registerSub);
+    this.sub$.add(sampleSub$);
   }
 
   //hủy subscription

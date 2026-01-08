@@ -5,33 +5,52 @@
       Create Account
     </h3>
 
-    <form (ngSubmit)="onRegister()" #registerForm="ngForm">
+    <!-- Reactive Form -->
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
 
-      <div class="mb-3">
-        <label>Email</label>
-        <input type="email" class="form-control" name="username" [(ngModel)]="username" required #usernameCtrl="ngModel">
-        @if (usernameCtrl.touched && usernameCtrl.errors?.['required']) {
-        <small class="text-danger">
-          Username là bắt buộc
-        </small>
+      <!-- EMAIL -->
+      <div class="mb-3"><label>Email</label>
+        <input type="email" class="form-control" formControlName="username" />
+
+        @if (
+          registerForm.get('username')?.touched && registerForm.get('username')?.errors?.['required']
+        ) {
+          <small class="text-danger">
+            Email là bắt buộc
+          </small>
+        }
+
+        @if (
+          registerForm.get('username')?.touched && registerForm.get('username')?.errors?.['minlength']
+        ) {
+          <small class="text-danger">
+            Email phải có ít nhất 3 ký tự
+          </small>
         }
       </div>
 
-      <div class="mb-3">
-        <label>Password</label>
-        <input type="password" class="form-control" name="password" [(ngModel)]="password" required  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$" #password="ngModel">
-        @if (registerForm.controls['password']?.touched && registerForm.controls['password']?.errors?.['required']) {
+      <!-- PASSWORD -->
+      <div class="mb-3"><label>Password</label>
+        <input type="password" class="form-control" formControlName="password" />
+
+        @if (
+          registerForm.get('password')?.touched && registerForm.get('password')?.errors?.['required']
+        ) {
           <small class="text-danger">
             Password là bắt buộc
           </small>
         }
-        @if (registerForm.controls['password']?.touched && registerForm.controls['password']?.errors?.['pattern']) {
+
+        @if (
+          registerForm.get('password')?.touched && registerForm.get('password')?.errors?.['pattern']
+        ) {
           <small class="text-danger d-block">
             Password phải có chữ hoa, chữ thường và số
           </small>
-      }
+        }
       </div>
 
+      <!-- SUBMIT -->
       <button
         type="submit"
         class="btn btn-success w-100"
@@ -42,8 +61,7 @@
 
     </form>
 
-
-    <div class="text-center">
+    <div class="text-center mt-3">
       <a routerLink="/login">Back to login</a>
     </div>
 
