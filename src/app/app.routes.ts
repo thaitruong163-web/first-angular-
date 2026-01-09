@@ -34,6 +34,6 @@ export const routes: Routes = [
     data: { roles: ['user', 'admin'] }
   },
 
-  { path: '**', redirectTo: 'login' }
+  { path: '**', redirectTo: '/login' }
 
 ]

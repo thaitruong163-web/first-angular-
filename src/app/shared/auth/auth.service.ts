@@ -40,7 +40,7 @@ export class AuthService {
   // kiểm tra đăng nhập
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
-    return token ? !this.jwtHelper.isTokenExpired(token) : false;
+    return !!token ;
   }
 
   // lấy role
