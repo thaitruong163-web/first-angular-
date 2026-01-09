@@ -13,7 +13,7 @@ export class AuthGuardService implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): boolean {
     //check token
     if (!this.auth.isAuthenticated()) {
-      this.router.navigate(['login']);
+      this.router.navigate(['/login']);
       return false;
     }
     //check role
@@ -22,11 +22,10 @@ export class AuthGuardService implements CanActivate {
       const userRole = this.auth.getRole();
 
       if (!userRole || !allowedRoles.includes(userRole)) {
-        this.router.navigate(['login']);
+        this.router.navigate(['/login']);
         return false;
       }
     }
-
     return true;
 
   }

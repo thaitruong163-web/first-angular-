@@ -10,7 +10,11 @@ export class UserState {
 
   // observable để component / guard subscribe
   user$ = this.userSubject.asObservable();
-
+  
+  // lấy user hiện tại
+  getUser(): User | null {
+    return this.userSubject.value;
+  }
   // set user khi login
   setUser(user: User): void {
     this.userSubject.next(user);
@@ -22,7 +26,7 @@ export class UserState {
   }
 
   // lấy nhanh user hiện tại (guard hay dùng)
-  getUser(): User | null {
+  getRole(): User | null {
     return this.userSubject.value;
   }
 }

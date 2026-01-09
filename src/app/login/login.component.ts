@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../shared/service/user.service';
-import { AuthMockService } from '../shared/auth/auth-mock.service';
+import { AuthService } from '../shared/auth/auth.service';
 
 @Component({
   standalone: true,
@@ -19,24 +19,14 @@ export class LoginComponent {
 
   constructor(
     private userService: UserService,
-    private authMock: AuthMockService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
   onLogin() {
-
-    this.authMock.login(this.username, this.password).subscribe(() => {
-      this.router.navigate(['/dashboard']);
-    });
-    
-
-    this.userService.login(this.username, this.password).subscribe({
-      next: (res) => {
-        console.log('Login thành công', res);
-
-        localStorage.setItem('token', res.token);
-
-        this.router.navigate(['/home']);
+    this.authService.login(this.username, this.password).subscribe({
+      next: () => {
+       this.router.navigate(['/dashboard']);
       },
       error: () => {
         this.errorMessage = 'Sai username hoặc password';
