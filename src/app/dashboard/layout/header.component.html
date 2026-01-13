@@ -1,0 +1,40 @@
+<header class="header">
+  <!-- LOGO -->
+  <a routerLink="/dashboard" class="logo">
+    <!-- Angular SVG -->
+    <svg
+      class="logo-icon"
+      viewBox="0 0 256 256"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M128 0L24 32L0 192L128 256L256 192L232 32L128 0Z"
+        fill="#DD0031"
+      />
+      <path
+        d="M128 46L48 74L64 184L128 210L192 184L208 74L128 46Z"
+        fill="white"
+      />
+    </svg>
+
+    <span class="logo-text">Angular</span>
+  </a>
+
+  <!-- MENU -->
+  <nav class="nav">
+    <a
+      routerLink="/dashboard"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+    </a>
+
+    <a routerLink="/dashboard/products" routerLinkActive="active">
+      Giỏ hàng
+    </a>
+
+    <a routerLink="/dashboard/cart" routerLinkActive="active">
+      Mua hàng 
+    </a>
+  </nav>
+</header>

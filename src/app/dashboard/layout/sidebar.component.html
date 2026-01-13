@@ -1,0 +1,11 @@
+<nav class="sidebar">
+  <a routerLink="home" routerLinkActive="active">🏠 Home</a>
+
+  <a *ngIf="role === 'admin'" routerLink="/admin">
+    🛠 Admin
+  </a>
+
+  <a routerLink="/user">
+    👤 User
+  </a>
+</nav>
