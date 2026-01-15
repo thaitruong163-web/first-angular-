@@ -1,0 +1,21 @@
+<h2>Danh sách sản phẩm</h2>
+
+<table class="product-table">
+  <thead>
+    <tr>
+      <th>Ảnh</th>
+      <th>Tên</th>
+      <th>Giá</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let p of products">
+      <td>
+        <img [src]="p.thumbnail" width="60" />
+      </td>
+      <td>{{ p.title }}</td>
+      <td>{{ p.price | number }} đ</td>
+    </tr>
+  </tbody>
+</table>

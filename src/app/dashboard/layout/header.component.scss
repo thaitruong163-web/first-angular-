@@ -1,39 +1,56 @@
-.header {
-  height: 64px;
-  padding: 0 20px;
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
-
+.dashboard-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
+  padding: 14px 32px;
+  background-color: #1f2937; // nền dashboard
+  color: #ffffff;
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-}
+  /* BRAND */
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #ffffff;
 
-.logo-icon {
-  width: 36px;
-  height: 36px;
-}
+    i {
+      font-size: 20px;
+      color: #3b82f6; // xanh nhấn
+    }
 
-.logo-text {
-  font-size: 18px;
-  font-weight: 600;
-  color: #dd0031;
-}
+    img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
 
-.nav a {
-  margin-left: 16px;
-  text-decoration: none;
-  color: #374151;
-  font-weight: 500;
-}
+    .brand-name {
+      font-size: 25px;
+      font-weight: 600;
+    }
+  }
 
-.nav a.active {
-  color: #dd0031;
+  /* NAV */
+  .main-nav {
+    display: flex;
+    gap: 28px;
+
+    a {
+      text-decoration: none;
+      color: #d1d5db;
+      font-weight: 500;
+      padding-bottom: 4px;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #ffffff;
+      }
+
+      &.active {
+        color: #3b82f6;
+        border-bottom: 2px solid #3b82f6;
+      }
+    }
+  }
 }

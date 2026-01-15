@@ -40,7 +40,7 @@ export class AuthService {
   // kiểm tra đăng nhập
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
-    return !!token ;
+    return !!token;
   }
 
   // lấy role

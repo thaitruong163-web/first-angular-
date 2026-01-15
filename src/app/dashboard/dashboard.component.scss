@@ -1,16 +1,18 @@
-.dashboard {
+.dashboard-layout {
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-.main {
-  flex: 1;
+.dashboard-body {
   display: flex;
+  flex: 1;
+  overflow: hidden;
 }
 
-.content {
-  flex: 1;
-  padding: 20px;
-  background: #f5f6fa;
+.dashboard-content {
+  flex: 1;              
+  padding: 16px;
+  overflow: auto;
+  background: #f4f6f8;
 }

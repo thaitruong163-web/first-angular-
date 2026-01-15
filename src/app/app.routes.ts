@@ -15,16 +15,22 @@ export const routes: Routes = [
   {
     path:'dashboard',
     component: DashboardComponent,
-    canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],     
     children: [
       { path:'', redirectTo: 'home', pathMatch: 'full' },
       {
         path:'home',
-        loadComponent: () => import('./dashboard/pages/home.component').then(m => m.HomeComponent)
+        loadComponent: () => import('./dashboard/pages/home/home.component').then(m => m.HomeComponent)
       },
+
+      {
+        path: 'products',
+        loadComponent: () => import('./dashboard/pages/products/products.component').then(m => m.ProductsComponent)
+      }
+
     ]
   },
 
-  { path: '**', redirectTo: 'login' }
+  { path: '**', redirectTo: 'login', pathMatch: 'full' }
 
 ]

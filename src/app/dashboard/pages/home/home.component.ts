@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from './../../shared/auth/auth.service';
+import { AuthService } from '../../../shared/auth/auth.service';
 
 @Component({
   standalone: true,

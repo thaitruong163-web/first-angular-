@@ -1,11 +1,13 @@
-<nav class="sidebar">
-  <a routerLink="home" routerLinkActive="active">🏠 Home</a>
-
-  <a *ngIf="role === 'admin'" routerLink="/admin">
-    🛠 Admin
+<aside class="sidebar">
+  <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    🏠 Home
   </a>
 
-  <a routerLink="/user">
-    👤 User
+  <a routerLink="/dashboard/products" routerLinkActive="active">
+    📦 Sản phẩm
   </a>
-</nav>
+
+  <a routerLink="/dashboard/cart" routerLinkActive="active">
+    🛒 Giỏ hàng
+  </a>
+</aside>
