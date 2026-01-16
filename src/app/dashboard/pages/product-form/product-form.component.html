@@ -1,0 +1,19 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div>
+    <label>Tên sản phẩm</label>
+    <input formControlName="title" />
+  </div>
+
+  <div>
+    <label>Giá</label>
+    <input type="number" formControlName="price" />
+  </div>
+
+  <div>
+    <label>Ảnh (URL)</label>
+    <input formControlName="thumbnail" />
+  </div>
+
+  <button type="submit">Lưu</button>
+  <button type="button" (click)="cancel.emit()">Huỷ</button>
+</form>

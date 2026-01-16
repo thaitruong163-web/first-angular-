@@ -1,0 +1,20 @@
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+}
+
+.pending {
+  background-color: #facc15; /* vàng */
+  color: #000;
+}
+
+.completed {
+  background-color: #22c55e; /* xanh lá */
+}
+
+.cancelled {
+  background-color: #ef4444; /* đỏ */
+}

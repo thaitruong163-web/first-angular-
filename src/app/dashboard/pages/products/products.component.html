@@ -6,6 +6,7 @@
       <th>Ảnh</th>
       <th>Tên</th>
       <th>Giá</th>
+      <th>Hành động</th>
     </tr>
   </thead>
 
@@ -16,6 +17,36 @@
       </td>
       <td>{{ p.title }}</td>
       <td>{{ p.price | number }} đ</td>
+
+      <td>
+        <button (click)="createOrderFromProduct(p)">
+          Tạo đơn
+        </button>
+      </td>
+      <td class="actions">
+        <button class="danger" (click)="deleteProduct(p.id)">
+          Xóa
+        </button>
+      </td>
     </tr>
   </tbody>
+
+  <button (click)="showForm = true"> Thêm sản phẩm</button>
+    <app-product-form
+      *ngIf="showForm"
+      [product]="selectedProduct"
+      (submitForm)="selectedProduct ? updateProduct($event) : addProduct($event)"
+      (cancel)="showForm = false">
+    </app-product-form>
+
+    <table>
+      <tr *ngFor="let p of products">
+        <td>{{ p.title }}</td>
+        <td>{{ p.price }}</td>
+        <td>
+          <button (click)="editProduct(p)">Sửa</button>
+        </td>
+      </tr>
+    </table>
+
 </table>
