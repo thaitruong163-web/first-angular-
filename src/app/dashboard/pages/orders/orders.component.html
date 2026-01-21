@@ -22,7 +22,7 @@
     <tr *ngFor="let o of filteredOrders">
       <td>#{{ o.id }}</td>
       <td>{{ o.totalPrice | number }} đ</td>
-      <td>{{ o.status }}</td>
+      <td class="status" [ngClass]="o.status">{{ o.status }}</td>
       <td>{{ o.createdAt | date:'short' }}</td>
       <td>
         <button [routerLink]="['/dashboard/orders', o.id]">

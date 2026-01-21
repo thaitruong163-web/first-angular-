@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router'
+
 import { Product } from '../../../shared/models/product.model';
-import { ProductService } from '../../../shared/service/product.service';
+import { ProductState } from '../../../shared/state/product.state';
 import { ProductFormComponent } from '../product-form/product-form.component';
 import { OrderService } from '../../../shared/service/order.service';
-import { Router } from '@angular/router'
+import { CartService } from '../../../shared/service/cart.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 
 @Component({
@@ -16,25 +20,32 @@ import { Router } from '@angular/router'
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent implements OnInit {
+
+  //State
   products: Product[] = [];
-  
-
-  constructor(private productService: ProductService, private orderService: OrderService, private router: Router ) {}
-
-  ngOnInit(): void{
-    
-    this.productService.getAll().subscribe(data => {
-        console.log('DUMMY_HTTP',data)
-        this.products = data;  
-
-    });
-  }
-
+  filteredProducts: Product[] = [];
+  //UI
+  keyword = '';
   showForm = false;
   selectedProduct?: Product;
 
+  constructor(
+    private productState: ProductState,
+    private orderService: OrderService,
+    private cartService: CartService,
+    private toastr: ToastrService,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    this.productState.getAll().subscribe(data => {
+      this.products = data;              // dữ liệu gốc
+      this.applyFilter();               //dữ liệu hiển thị
+    });
+  }
+  //Product CRUD
   addProduct(p: Product) {
-    this.products.unshift(p);
+    this.productState.add(p);
     this.showForm = false;
   }
 
@@ -44,31 +55,35 @@ export class ProductsComponent implements OnInit {
   }
 
   updateProduct(p: Product) {
-    const index = this.products.findIndex(x => x.id === p.id);
-    this.products[index] = p;
+    this.productState.update(p);
     this.showForm = false;
     this.selectedProduct = undefined;
   }
   deleteProduct(id: number) {
-  this.products = this.products.filter(p => p.id !== id);
+    this.productState.delete(id);
   }
-
-  createOrderFromProduct(p: Product) {
-    this.orderService.create({
-      id: Date.now(),
-      totalPrice: p.price,
-      status: 'pending',
-      createdAt: new Date(),
-      items: [{
-        productId: p.id,
-        title: p.title,
-        price: p.price,
-        quantity: 1
-      }]
+  //Cart
+  addToCart(p: Product) {
+    this.cartService.addToCart(1, p.id, 1).subscribe({
+      next: cart =>{
+        //API thành công
+        this.toastr.success('Thêm thành công');
+        console.log('Cart response', cart);
+      },
+      error: err =>{
+        this.toastr.error('Thêm thất bại');
+        console.log(err);
+      }
     });
-    this.router.navigate(['dashboard/orders']);
-    console.log('Order Create:', this.orderService.getAll());
   }
-
+  //Filter
+  applyFilter() {
+    const keyword = this.keyword.toLowerCase().trim();
+    this.filteredProducts = !keyword
+      ? [...this.products]
+      : this.products.filter(p =>
+        p.title.toLowerCase().includes(keyword)
+      );
+  }
 
 }

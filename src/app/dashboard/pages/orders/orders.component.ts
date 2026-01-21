@@ -9,7 +9,9 @@ import { FormsModule } from '@angular/forms'
   selector: 'app-orders',
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule],
-  templateUrl: './orders.component.html'
+  templateUrl: './orders.component.html',
+  styleUrl: './orders.component.scss'
+
 })
 export class OrdersComponent implements OnInit {
   orders: Order[] = [];
