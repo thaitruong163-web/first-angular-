@@ -1,3 +1,5 @@
+import { CartProduct } from './cart.model';
+
 export interface OrderItem {
   productId: number;
   title: string;
@@ -12,7 +14,7 @@ export interface Order {
   totalPrice: number;
   status: OrderStatus;
   createdAt: Date;
-  items: OrderItem[];
+  products: CartProduct[];
 }
 
 

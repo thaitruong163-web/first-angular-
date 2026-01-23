@@ -7,7 +7,8 @@ import { Product } from '../../../shared/models/product.model';
   selector: 'app-product-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './product-form.component.html'
+  templateUrl: './product-form.component.html',
+  styleUrl: './product-form.component.scss'
 })
 export class ProductFormComponent implements OnInit {
   @Input() product?: Product;        // dùng cho edit

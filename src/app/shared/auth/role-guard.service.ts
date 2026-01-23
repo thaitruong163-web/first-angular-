@@ -17,7 +17,7 @@ export class RoleGuardService implements CanActivate {
     const tokenPayload:any = jwtDecode('token');
     //check login và role
     if (
-      !this.auth.isAuthenticated() || 
+      !this.auth.isLoggedIn() || 
       tokenPayload.role !== expectedRole
     ) {
       this.router.navigate(['login']);

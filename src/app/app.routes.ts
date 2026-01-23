@@ -25,20 +25,24 @@ export const routes: Routes = [
 
       {
         path: 'products',
-        loadComponent: () => import('./dashboard/pages/products/products.component').then(m => m.ProductsComponent)
+        loadComponent: () => import('./dashboard/pages/products/products.component').then(m => m.ProductsComponent),
+        canActivate: [AuthGuardService],
+        data: { roles:['admin', 'user']}
       },
 
       {
         path: 'orders',
-        loadComponent: () => import('./dashboard/pages/orders/orders.component').then(m => m.OrdersComponent)
+        loadComponent: () => import('./dashboard/pages/orders/orders.component').then(m => m.OrdersComponent),
+        canActivate: [AuthGuardService],
+        data: { roles: ['admin', 'user'] }
       },
 
       {
         path: 'orders/:id',
-        loadComponent: () => import('./dashboard/pages/order-detail/order-detail.component').then(m => m.OrderDetailComponent)
-      }
-
-
+        loadComponent: () => import('./dashboard/pages/order-detail/order-detail.component').then(m => m.OrderDetailComponent),
+        canActivate: [AuthGuardService],
+        data: { roles: ['admin', 'user'] }
+      },
     ]
   },
 

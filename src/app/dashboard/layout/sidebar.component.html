@@ -3,7 +3,7 @@
     🏠 Home
   </a>
 
-  <a routerLink="/dashboard/products" routerLinkActive="active">
+  <a *ngIf = "auth.isAdmin()" routerLink="/dashboard/products" routerLinkActive="active"> 
     📦 Products
   </a>
 

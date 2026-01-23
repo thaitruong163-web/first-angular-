@@ -10,22 +10,21 @@ export class ProductState {
 
     private products$ = new BehaviorSubject<Product[]>([]);
 
-    constructor(private productService: ProductService) {
-        this.init();
-    }
+    constructor(private productService: ProductService) {}
 
-    private init() {
-        const cache = localStorage.getItem('products');
-        if (cache) {
+    getAll() {
+        if (this.products$.value.length === 0) {
+            const cache = localStorage.getItem('products');
+
+            if (cache) {
             this.products$.next(JSON.parse(cache));
-        } else {
+            } else {
             this.productService.getAll().subscribe(data => {
                 this.setState(data);
             });
+            }
         }
-    }
 
-    getAll() {
         return this.products$.asObservable();
     }
 

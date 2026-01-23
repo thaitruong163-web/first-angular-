@@ -13,7 +13,7 @@ export class CartService {
   addToCart(
     userId: number,
     productId: number,
-    quantity: number = 1
+    quantity: number 
   ): Observable<Cart> {
     return this.http.post<Cart>(`${DUMMY_HTTP}/add`, {
       userId,

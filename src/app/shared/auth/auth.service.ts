@@ -1,50 +1,55 @@
-// src/app/shared/auth/auth.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { tap } from 'rxjs/operators';
-import { UserState } from '../state/user.state';
+import { map, throwError } from 'rxjs';
+import { User } from '../models/user.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
+    private readonly STORAGE_KEY = 'current_user';
 
-  private LOGIN_API = 'https://dummyjson.com/auth/login';
+    constructor(private http: HttpClient) { }
 
-  constructor(
-    private http: HttpClient,
-    private jwtHelper: JwtHelperService,
-    private userState: UserState
-  ) {}
+    login(username: string, password: string) {
+        // password chưa dùng vì là giả lập
+        return this.http.get<any>('https://dummyjson.com/users').pipe(
+            map(res => {
+                const u = res.users.find((x: any) => x.username === username);
+                if (!u) {
+                    throw new Error('User not found');
+                }
 
-  // LOGIN
-  login(username: string, password: string) {
-    return this.http.post<any>(this.LOGIN_API, {
-      username,
-      password
-    }).pipe(
-      tap(res => {
-        localStorage.setItem('token', res.token);
+                // GIẢ LẬP ROLE
+                const user: User = {
+                    id: u.id,
+                    username: u.username,
+                    role: username === 'emilys' ? 'admin' : 'user'
+                };
 
-        this.userState.setUser({
-          id: res.id,
-          username: res.username,
-          role: res.role ?? 'user'
-        });
-      })
-    );
-  }
+                localStorage.setItem(this.STORAGE_KEY, JSON.stringify(user));
+                return user;
+            })
+        );
+    }
 
-  // kiểm tra đăng nhập
-  isAuthenticated(): boolean {
-    const token = localStorage.getItem('token');
-    return !!token;
-  }
+    getCurrentUser(): User | null {
+        const raw = localStorage.getItem(this.STORAGE_KEY);
+        return raw ? JSON.parse(raw) : null;
+    }
 
-  // lấy role
-  getRole(): string | null {
-    return this.userState.getUser()?.role ?? null;
-  }
+    isLoggedIn(): boolean {
+      return this.getCurrentUser() !==null;
+    }
+
+
+    isAdmin(): boolean {
+        return this.getRole() === 'admin';
+    }
+
+    logout() {
+        localStorage.removeItem(this.STORAGE_KEY);
+    }
+    getRole(): 'admin' | 'user' | null {
+      return this.getCurrentUser()?.role ?? null;
+    }
+
 }

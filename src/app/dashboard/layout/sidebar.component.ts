@@ -12,7 +12,7 @@ import { AuthService } from '../../shared/auth/auth.service';
 })
 export class SidebarComponent {
   role : string | null = '';
-  constructor(private auth: AuthService) {
+  constructor(public auth: AuthService) {
     this.role = this.auth.getRole();
   }
 

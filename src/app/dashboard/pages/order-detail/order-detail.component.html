@@ -3,7 +3,7 @@
   <p>Tổng tiền: {{ order.totalPrice }}</p>
 
   <ul>
-    <li *ngFor="let item of order.items">
+    <li *ngFor="let item of order.products">
       {{ item.title }} - {{ item.quantity }} x {{ item.price }}
     </li>
   </ul>

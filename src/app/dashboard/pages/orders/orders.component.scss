@@ -1,56 +1,92 @@
+/* ===== Title ===== */
 h2 {
   margin-bottom: 16px;
-  font-size: 20px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1f2937;
 }
 
+/* ===== Filter select ===== */
 select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
   margin-bottom: 16px;
-  padding: 6px 10px;
+  background: white;
+  cursor: pointer;
 }
 
+/* ===== Table ===== */
 .order-table {
   width: 100%;
   border-collapse: collapse;
-  background: #fff;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.order-table thead {
+  background: #f1f5f9;
 }
 
 .order-table th,
 .order-table td {
-  padding: 12px;
-  border-bottom: 1px solid #eee;
+  padding: 12px 14px;
   text-align: left;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.order-table thead {
-  background: #f5f6fa;
+.order-table th {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
 }
 
+.order-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* ===== Status badge ===== */
+.status {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-block;
+  text-transform: capitalize;
+}
+
+/* Pending */
+.status.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* Completed */
+.status.completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* Cancelled */
+.status.cancelled {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ===== Button ===== */
 button {
-  padding: 6px 10px;
+  padding: 6px 12px;
+  border-radius: 6px;
   border: none;
-  border-radius: 4px;
+  background: #3b82f6;
+  color: white;
+  font-size: 13px;
   cursor: pointer;
-  background: #3498db;
-  color: #fff;
+  transition: background 0.2s ease;
 }
 
 button:hover {
-  opacity: 0.85;
+  background: #2563eb;
 }
-
-.status {
-  font-weight: 600;
-}
-
-.status.pending {
-  color: orange;
-}
-
-.status.completed {
-  color: green;
-}
-
-.status.cancelled {
-  color: red;
-}
-
