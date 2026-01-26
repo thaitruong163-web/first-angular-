@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OrderService } from '../../../shared/service/order.service';
 import { Order } from '../../../shared/models/order.model';
 import { CommonModule } from '@angular/common';
@@ -15,6 +15,7 @@ export class OrderDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private orderService: OrderService
   ) {}
 

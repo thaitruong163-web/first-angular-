@@ -11,15 +11,15 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'login/forgot-password', component: ForgotPassword },
   { path: 'login/register', component: RegisterComponent },
-  
+
   {
-    path:'dashboard',
+    path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [AuthGuardService],     
+    canActivate: [AuthGuardService],
     children: [
-      { path:'', redirectTo: 'home', pathMatch: 'full' },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       {
-        path:'home',
+        path: 'home',
         loadComponent: () => import('./dashboard/pages/home/home.component').then(m => m.HomeComponent)
       },
 
@@ -27,7 +27,7 @@ export const routes: Routes = [
         path: 'products',
         loadComponent: () => import('./dashboard/pages/products/products.component').then(m => m.ProductsComponent),
         canActivate: [AuthGuardService],
-        data: { roles:['admin', 'user']}
+        data: { roles: ['admin', 'user'] }
       },
 
       {

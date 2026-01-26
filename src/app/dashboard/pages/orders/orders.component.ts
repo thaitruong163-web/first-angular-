@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderService } from '../../../shared/service/order.service';
 import { Order } from '../../../shared/models/order.model';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CartState } from '../../../shared/state/cart.state';
 import { Cart } from '../../../shared/models/cart.model'
@@ -20,14 +20,14 @@ export class OrdersComponent implements OnInit {
   filteredOrders: Order[] = [];
   statusFilter: string = 'all';
 
-  constructor(private cartState: CartState) {}
+  constructor(private cartState: CartState, private router: Router, private orderService: OrderService) {}
 
   ngOnInit() {
     this.cartState.getCart().subscribe(cart => {
       if (!cart) return;
 
       const fakeOrder: Order = {
-        id: cart.id,
+        id: Date.now(),
         totalPrice: cart.total,
         status: 'pending', // mặc định
         createdAt: new Date(),
@@ -36,9 +36,10 @@ export class OrdersComponent implements OnInit {
 
       this.orders = [fakeOrder]; // QUAN TRỌNG
       this.applyFilter();
+
+      this.orderService.add(fakeOrder);
     });
   }
-
 
   applyFilter() {
     if (this.statusFilter === 'all') {
@@ -50,16 +51,7 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-  confirmOrder() {
-    if (this.orders.length === 0) return;
-    this.orders[0].status = 'completed';
-    this.applyFilter();
+  paymentOrder(orderId: number) {
+    this.router.navigate(['/dashboard/orders', orderId]);
   }
-
-  cancelOrder() {
-    this.cartState.clear();
-    this.orders = [];
-    this.filteredOrders = [];
-  }
-
 }

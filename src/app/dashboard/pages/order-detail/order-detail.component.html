@@ -1,24 +1,33 @@
 <div *ngIf="order">
-  <h2>Đơn #{{ order.id }}</h2>
-  <p>Tổng tiền: {{ order.totalPrice }}</p>
+  <h2>Chi tiết đơn hàng #{{ order.id }}</h2>
+  <p>Tổng tiền: <strong>{{ order.totalPrice | number }} đ</strong></p>
+  <p>Trạng thái: <strong [ngClass]="order.status">{{ order.status }}</strong></p>
 
+  <h3>Sản phẩm trong đơn:</h3>
   <ul>
     <li *ngFor="let item of order.products">
-      {{ item.title }} - {{ item.quantity }} x {{ item.price }}
+      {{ item.title }} - {{ item.quantity }} x {{ item.price }}đ
     </li>
   </ul>
 
-  <button
-    *ngIf="order.status === 'pending'"
-    (click)="changeStatus('completed')">
-    Hoàn thành đơn
-  </button>
-  
-  <button
-    *ngIf="order.status === 'pending'"
-    (click)="changeStatus('cancelled')">
-    Hủy đơn
-  </button>
+  <div class="action-buttons" *ngIf="order.status === 'pending'">
+    <h3>Xác nhận thanh toán:</h3>
+    <button
+      (click)="changeStatus('completed')"
+      class="btn-success">
+      Xác nhận thanh toán
+    </button>
+    
+    <button
+      (click)="changeStatus('cancelled')"
+      class="btn-danger">
+      Hủy đơn hàng
+    </button>
+  </div>
+
+  <div class="completed-message" *ngIf="order.status !== 'pending'">
+    <p>Đơn hàng đã được xử lý: <strong>{{ order.status }}</strong></p>
+  </div>
 
 </div>
 

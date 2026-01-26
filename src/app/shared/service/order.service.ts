@@ -21,6 +21,11 @@ export class OrderService {
     return this.orders$.asObservable();
   }
 
+  add(order: Order) {
+    const current = this.orders$.value;
+    this.orders$.next([order, ...current]);
+  }
+
   create(order: Order) {
     const current = this.orders$.value;
     const updated = [...current, order];

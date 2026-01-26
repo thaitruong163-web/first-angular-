@@ -1,63 +1,55 @@
-<<<<<<< HEAD
-# first-angular-
-=======
-# AngularTourOfHeroes
+# Online Store TT-163
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.4.
+TT-163 là mini project Angular được xây dựng nhằm mục tiêu học và thực hành Angular một cách bài bản, tập trung vào kiến trúc, authentication, state management và TypeScript strict.
 
-## Development server
+Project này không chỉ để “code cho chạy”, mà để hiểu cách tổ chức một ứng dụng Angular thực tế.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## 🎯 Mục tiêu học tập
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Hiểu cấu trúc chuẩn của một Angular project
+- Thực hành Authentication & Authorization
+- Áp dụng Route Guard và Role-based access
+- Quản lý state một cách rõ ràng
+- Sử dụng TypeScript đúng kiểu, hạn chế `any`
+- Làm quen với Dashboard và các module chức năng
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🧱 Công nghệ sử dụng
 
-```bash
-ng generate component component-name
-```
+- Angular (Angular CLI)
+- TypeScript
+- RxJS
+- Angular Router
+- HTML / CSS
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## ✨ Chức năng chính
 
-## Building
+- 🔐 Authentication (Login / Register)
+- 🛡️ Route Guard (Auth Guard, Role Guard)
+- 👤 Phân quyền người dùng theo role
+- 📦 Quản lý Product
+- 🛒 Cart & State management
+- 📊 Dashboard hiển thị dữ liệu
+- 🧩 Tách module, service, model rõ ràng
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## 📁 Cấu trúc thư mục (rút gọn)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
->>>>>>> d2d8eec (first_angular)
+```text
+src/
+ ├── app/
+ │   ├── dashboard/     # Dashboard module
+ │   ├── login/
+ │   ├── shared/
+ |   |── ├── auth/      # Login, Register, Auth service, Guard
+ │   │   ├── models/    # Interface / Model
+ │   │   ├── state/     # State management
+ │   │   └── services/ # Shared services
+ │   └── app-routing.module.ts
+ └── ...

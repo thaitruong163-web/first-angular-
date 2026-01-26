@@ -24,14 +24,9 @@
       <td>{{ o.totalPrice | number }} đ</td>
       <td class="status" [ngClass]="o.status">{{ o.status }}</td>
       <td>{{ o.createdAt | date:'short' }}</td>
-      <button (click)="confirmOrder()">Xác nhận</button>
-      <button (click)="cancelOrder()">Huỷ</button>
 
-      <td>
-        <button [routerLink]="['/dashboard/orders', o.id]">
-          Xem chi tiết
-        </button>
-      </td>
+      <button *ngIf="o.status === 'pending'" (click)="paymentOrder(o.id)" class="payment-btn">Thanh toán</button>
+ 
     </tr>
   </tbody>
 </table>
