@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 
 import { Product } from '../../../shared/models/product.model';
 import { ProductState } from '../../../shared/state/product.state';
@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, FormsModule, ProductFormComponent],
+  imports: [CommonModule, FormsModule, ProductFormComponent, RouterModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })

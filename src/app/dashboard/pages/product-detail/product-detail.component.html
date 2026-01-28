@@ -1,0 +1,32 @@
+<div *ngIf="loading" class="loading">
+  Đang tải sản phẩm...
+</div>
+
+<div *ngIf="!loading && error" class="error-message">
+  <p> {{ error }}</p>
+</div>
+
+<div *ngIf="!loading && product" class="product-detail-container">
+  <div class="product-image">
+    <img [src]="product.thumbnail" [alt]="product.title" />
+  </div>
+
+  <div class="product-info">
+    <h1>{{ product.title }}</h1>
+
+    <div class="details">
+      <p><strong>Giá:</strong> {{ product.price | number }} đ</p>
+    </div>
+
+    <div class="quantity-selector">
+      <label>Số lượng:</label>
+      <button (click)="decreaseQuantity()" class="btn-qty">-</button>
+      <input type="number" [(ngModel)]="quantity" min="1" />
+      <button (click)="increaseQuantity()" class="btn-qty">+</button>
+    </div>
+
+    <button (click)="addToCart()" class="btn btn-primary btn-large">
+      🛒 Thêm vào giỏ hàng
+    </button>
+  </div>
+</div>

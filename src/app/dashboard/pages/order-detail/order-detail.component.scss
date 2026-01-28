@@ -1,0 +1,119 @@
+/* Container tổng */
+:host {
+  display: block;
+  padding: 20px;
+  background: #f9fafb;
+}
+
+/* Tiêu đề */
+h2 {
+  margin-bottom: 12px;
+  color: #1f2937;
+}
+
+h3 {
+  margin-top: 24px;
+  margin-bottom: 12px;
+  color: #374151;
+}
+
+/* Thông tin chung */
+p {
+  margin: 6px 0;
+  font-size: 15px;
+  color: #374151;
+
+  strong {
+    font-weight: 600;
+  }
+}
+
+/* Trạng thái đơn hàng */
+strong.pending {
+  color: #f59e0b; // vàng
+}
+
+strong.completed {
+  color: #10b981; // xanh lá
+}
+
+strong.cancelled {
+  color: #ef4444; // đỏ
+}
+
+/* Danh sách sản phẩm */
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 12px;
+
+  li {
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    background: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+    font-size: 14px;
+  }
+}
+
+/* Khu vực hành động */
+.action-buttons {
+  margin-top: 24px;
+  padding: 16px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  button {
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+}
+
+/* Button xác nhận */
+.btn-success {
+  background: #10b981;
+  color: white;
+
+  &:hover {
+    background: #059669;
+  }
+}
+
+/* Button hủy */
+.btn-danger {
+  background: #ef4444;
+  color: white;
+
+  &:hover {
+    background: #dc2626;
+  }
+}
+
+/* Thông báo khi đã xử lý */
+.completed-message {
+  margin-top: 24px;
+  padding: 16px;
+  background: #f3f4f6;
+  border-left: 4px solid #6b7280;
+  border-radius: 6px;
+
+  p {
+    margin: 0;
+    font-size: 15px;
+  }
+}

@@ -26,7 +26,10 @@ export class LoginComponent {
   onLogin() {
     this.authService.login(this.username, this.password).subscribe({
       next: () => {
-       this.router.navigate(['/dashboard']);
+        const redirect = localStorage.getItem('redirect_url');
+        localStorage.removeItem('redirect_url');
+        this.router.navigateByUrl(redirect || '/dashboard');
+
       },
       error: () => {
         this.errorMessage = 'Sai username hoặc password';

@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Product } from '../models/product.model';
 import { ProductService } from '../service/product.service';
 
+const DUMMY_HTTP = 'https://dummyjson.com/products';
 @Injectable({
     providedIn: 'root'
 })
@@ -26,6 +27,9 @@ export class ProductState {
         }
 
         return this.products$.asObservable();
+    }
+    getById(id: number){
+        return this.productService.getById(id);
     }
 
     add(p: Product) {

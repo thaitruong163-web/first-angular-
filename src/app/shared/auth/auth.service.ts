@@ -1,14 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable,Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, throwError } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
+import { map } from 'rxjs';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
     private readonly STORAGE_KEY = 'current_user';
+    private isBrowser: boolean;
 
-    constructor(private http: HttpClient, private router: Router) { }
+    constructor(private http: HttpClient, private router: Router, @Inject(PLATFORM_ID) platformId: Object) { 
+        this.isBrowser = isPlatformBrowser(platformId);
+    }
 
     login(username: string, password: string) {
         // password chưa dùng vì là giả lập
@@ -33,6 +37,7 @@ export class AuthService {
     }
 
     getCurrentUser(): User | null {
+        if (!this.isBrowser) return null;
         const raw = localStorage.getItem(this.STORAGE_KEY);
         return raw ? JSON.parse(raw) : null;
     }

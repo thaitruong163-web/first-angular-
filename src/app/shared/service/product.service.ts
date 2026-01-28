@@ -16,6 +16,10 @@ export class ProductService {
   getAll(): Observable<Product[]> {
     return this.http.get<any>(DUMMY_HTTP).pipe(map(res => res.products))
   }
+
+  getById(id: number): Observable<Product> {
+    return this.http.get<Product>(`${DUMMY_HTTP}/${id}`);
+  }
 }
 
 

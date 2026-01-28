@@ -31,6 +31,13 @@ export const routes: Routes = [
       },
 
       {
+        path: 'products/:id',
+        loadComponent: () => import('./dashboard/pages/product-detail/product-detail.component').then(m => m.ProductDetailComponent),
+        canActivate: [AuthGuardService],
+        data: { roles: ['admin', 'user'] }
+      },
+
+      {
         path: 'orders',
         loadComponent: () => import('./dashboard/pages/orders/orders.component').then(m => m.OrdersComponent),
         canActivate: [AuthGuardService],

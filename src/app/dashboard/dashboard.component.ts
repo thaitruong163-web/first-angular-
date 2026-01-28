@@ -10,4 +10,8 @@ import { SidebarComponent } from './layout/sidebar.component';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {}
+export class DashboardComponent {
+  ngOnInit() {
+    console.log('Dashboard component loaded');
+  }
+}

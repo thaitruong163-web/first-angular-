@@ -1,13 +1,7 @@
 <h2 class="page-title">Danh sách sản phẩm</h2>
 
 <div class="toolbar">
-  <input
-    class="search-input"
-    type="text"
-    placeholder="Tìm sản phẩm"
-    [(ngModel)]="keyword"
-    (input)="applyFilter()"
-  />
+  <input class="search-input" type="text" placeholder="Tìm sản phẩm" [(ngModel)]="keyword" (input)="applyFilter()" />
 
   <!-- CHỈ ADMIN -->
   <button *ngIf="isAdmin" class="btn btn-add" (click)="showForm = true">
@@ -17,10 +11,8 @@
 
 <!-- FORM -->
 <div class="form-wrapper" *ngIf="showForm && isAdmin">
-  <app-product-form
-    [product]="selectedProduct"
-    (submitForm)="selectedProduct ? updateProduct($event) : addProduct($event)"
-    (cancel)="showForm = false">
+  <app-product-form [product]="selectedProduct"
+    (submitForm)="selectedProduct ? updateProduct($event) : addProduct($event)" (cancel)="showForm = false">
   </app-product-form>
 </div>
 
@@ -40,7 +32,11 @@
       <td>
         <img [src]="p.thumbnail" class="product-img" />
       </td>
-      <td>{{ p.title }}</td>
+      <td>
+        <a [routerLink]="['/dashboard/products', p.id]" class="product-link" target="_blank">
+          {{ p.title }}
+        </a>
+      </td>
       <td class="price">{{ p.price | number }} đ</td>
 
       <td>
