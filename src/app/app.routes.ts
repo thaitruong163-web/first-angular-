@@ -13,6 +13,11 @@ export const routes: Routes = [
   { path: 'login/register', component: RegisterComponent },
 
   {
+    path: 'product/:id',
+    loadComponent: () => import('./dashboard/pages/product-detail/product-detail.component').then(m => m.ProductDetailComponent)
+  },
+
+  {
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuardService],
@@ -26,15 +31,11 @@ export const routes: Routes = [
       {
         path: 'products',
         loadComponent: () => import('./dashboard/pages/products/products.component').then(m => m.ProductsComponent),
-        canActivate: [AuthGuardService],
-        data: { roles: ['admin', 'user'] }
       },
 
       {
         path: 'products/:id',
         loadComponent: () => import('./dashboard/pages/product-detail/product-detail.component').then(m => m.ProductDetailComponent),
-        canActivate: [AuthGuardService],
-        data: { roles: ['admin', 'user'] }
       },
 
       {

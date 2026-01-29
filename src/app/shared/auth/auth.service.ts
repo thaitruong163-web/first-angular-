@@ -1,4 +1,4 @@
-import { Injectable,Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
 import { map } from 'rxjs';
@@ -7,57 +7,65 @@ import { User } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-    private readonly STORAGE_KEY = 'current_user';
-    private isBrowser: boolean;
 
-    constructor(private http: HttpClient, private router: Router, @Inject(PLATFORM_ID) platformId: Object) { 
-        this.isBrowser = isPlatformBrowser(platformId);
+  private readonly STORAGE_KEY = 'current_user';
+  private isBrowser: boolean;
+
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
+  login(username: string, password: string) {
+    return this.http.get<any>('https://dummyjson.com/users').pipe(
+      map(res => {
+        const u = res.users.find((x: any) => x.username === username);
+        if (!u) {
+          throw new Error('User not found');
+        }
+
+        const user: User = {
+          id: u.id,
+          username: u.username,
+          role: username === 'emilys' ? 'admin' : 'user'
+        };
+
+        // chỉ ghi localStorage khi ở browser
+        if (this.isBrowser) {
+          localStorage.setItem(this.STORAGE_KEY, JSON.stringify(user));
+        }
+
+        return user;
+      })
+    );
+  }
+
+  getCurrentUser(): User | null {
+    if (!this.isBrowser) return null;
+
+    const user = localStorage.getItem(this.STORAGE_KEY);
+    return user ? JSON.parse(user) : null;
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.getCurrentUser();
+  }
+
+  getRole(): 'admin' | 'user' | null {
+    return this.getCurrentUser()?.role ?? null;
+  }
+
+  isAdmin(): boolean {
+    return this.getRole() === 'admin';
+  }
+
+  logout() {
+    if (this.isBrowser) {
+      localStorage.removeItem(this.STORAGE_KEY);
     }
-
-    login(username: string, password: string) {
-        // password chưa dùng vì là giả lập
-        return this.http.get<any>('https://dummyjson.com/users').pipe(
-            map(res => {
-                const u = res.users.find((x: any) => x.username === username);
-                if (!u) {
-                    throw new Error('User not found');
-                }
-
-                // GIẢ LẬP ROLE
-                const user: User = {
-                    id: u.id,
-                    username: u.username,
-                    role: username === 'emilys' ? 'admin' : 'user'
-                };
-
-                localStorage.setItem(this.STORAGE_KEY, JSON.stringify(user));
-                return user;
-            })
-        );
-    }
-
-    getCurrentUser(): User | null {
-        if (!this.isBrowser) return null;
-        const raw = localStorage.getItem(this.STORAGE_KEY);
-        return raw ? JSON.parse(raw) : null;
-    }
-
-    isLoggedIn(): boolean {
-      return this.getCurrentUser() !==null;
-    }
-
-
-    isAdmin(): boolean {
-        return this.getRole() === 'admin';
-    }
-
-    logout() {
-        // xóa token và điều hướng về trang login
-        localStorage.removeItem(this.STORAGE_KEY);
-        this.router.navigate(['/login']);
-    }
-    getRole(): 'admin' | 'user' | null {
-      return this.getCurrentUser()?.role ?? null;
-    }
-
+    this.router.navigate(['/login']);
+  }
 }

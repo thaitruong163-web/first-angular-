@@ -8,7 +8,8 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   selector: 'app-order-detail',
   imports: [CommonModule],
-  templateUrl: './order-detail.component.html'
+  templateUrl: './order-detail.component.html',
+  styleUrl: './order-detail.component.scss'
 })
 export class OrderDetailComponent implements OnInit {
   order?: Order;

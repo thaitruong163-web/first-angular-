@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -26,26 +26,29 @@ export class ProductDetailComponent implements OnInit {
         private productState: ProductState,
         private cartState: CartState,
         private cartService: CartService,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private cdr: ChangeDetectorRef
     ) { }
 
     ngOnInit() {
         const id = Number(this.route.snapshot.paramMap.get('id'));
+        
         if (!id) {
             this.error = 'ID sản phẩm không hợp lệ';
             this.loading = false;
             return;
         }
+        
         this.productState.getById(id).subscribe({
             next: (product) => {
                 this.product = new Product(product);
                 this.loading = false;
+                this.cdr.detectChanges();
             },
             error: (err) => {
                 this.error = 'Không thể tải sản phẩm';
                 this.loading = false;
-                this.toastr.error('Lỗi tải sản phẩm');
-                console.error(err);
+                this.cdr.detectChanges();
             }
         });
     }
@@ -68,9 +71,6 @@ export class ProductDetailComponent implements OnInit {
                 this.cartState.setCart(cart);   
                 this.toastr.success('Đã thêm vào giỏ hàng');
             },
-            error: () => {
-                this.toastr.error('Thêm thất bại');
-            }
         });
     }
 
