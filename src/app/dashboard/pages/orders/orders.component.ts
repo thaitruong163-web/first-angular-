@@ -5,7 +5,6 @@ import { Order } from '../../../shared/models/order.model';
 import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CartState } from '../../../shared/state/cart.state';
-import { Cart } from '../../../shared/models/cart.model'
 
 @Component({
   selector: 'app-orders',
@@ -20,7 +19,7 @@ export class OrdersComponent implements OnInit {
   filteredOrders: Order[] = [];
   statusFilter: string = 'all';
 
-  constructor(private cartState: CartState, private router: Router, private orderService: OrderService) {}
+  constructor(private cartState: CartState, private router: Router, private orderService: OrderService) { }
 
   ngOnInit() {
     this.cartState.getCart().subscribe(cart => {
@@ -34,7 +33,7 @@ export class OrdersComponent implements OnInit {
         products: cart.products
       };
 
-      this.orders = [fakeOrder]; // QUAN TRỌNG
+      this.orders = [fakeOrder];
       this.applyFilter();
 
       this.orderService.add(fakeOrder);

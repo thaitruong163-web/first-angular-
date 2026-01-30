@@ -12,15 +12,11 @@
 
   <div class="action-buttons" *ngIf="order.status === 'pending'">
     <h3>Xác nhận thanh toán:</h3>
-    <button
-      (click)="changeStatus('completed')"
-      class="btn-success">
+    <button (click)="changeStatus('completed')" class="btn-success">
       Xác nhận thanh toán
     </button>
-    
-    <button
-      (click)="changeStatus('cancelled')"
-      class="btn-danger">
+
+    <button (click)="changeStatus('cancelled')" class="btn-danger">
       Hủy đơn hàng
     </button>
   </div>
@@ -30,6 +26,3 @@
   </div>
 
 </div>
-
-
-

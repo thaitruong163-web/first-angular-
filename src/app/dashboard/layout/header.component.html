@@ -8,26 +8,22 @@
 
   <!-- MENU -->
   <nav class="main-nav">
-    <a
-      routerLink="/dashboard"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
-    >
-      Trang chủ
+    <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      Home
     </a>
 
     <a routerLink="/dashboard/products" routerLinkActive="active">
-      Sản phẩm
+      Products
     </a>
 
     <a routerLink="/dashboard/orders" routerLinkActive="active">
-      Giỏ hàng
+      Cart
     </a>
 
     <button (click)="logout()" class="logout-btn">
-      Đăng xuất
+      Logout
     </button>
-    
+
   </nav>
 
 </header>

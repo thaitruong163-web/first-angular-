@@ -32,13 +32,13 @@ export class ProductDetailComponent implements OnInit {
 
     ngOnInit() {
         const id = Number(this.route.snapshot.paramMap.get('id'));
-        
+
         if (!id) {
             this.error = 'ID sản phẩm không hợp lệ';
             this.loading = false;
             return;
         }
-        
+
         this.productState.getById(id).subscribe({
             next: (product) => {
                 this.product = new Product(product);
@@ -68,12 +68,11 @@ export class ProductDetailComponent implements OnInit {
 
         this.cartService.addToCart(user.id, this.product.id, 1).subscribe({
             next: cart => {
-                this.cartState.setCart(cart);   
+                this.cartState.setCart(cart);
                 this.toastr.success('Đã thêm vào giỏ hàng');
             },
         });
     }
-
 
     increaseQuantity() {
         this.quantity++;

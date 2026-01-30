@@ -35,10 +35,10 @@ export class ProductsComponent implements OnInit {
     private productState: ProductState,
     private orderService: OrderService,
     private cartService: CartService,
-    private cartState: CartState, 
+    private cartState: CartState,
     private toastr: ToastrService,
     private router: Router
-    
+
   ) { }
 
   ngOnInit(): void {
@@ -52,7 +52,7 @@ export class ProductsComponent implements OnInit {
       this.applyFilter();               //dữ liệu hiển thị
     });
   }
-  
+
   //Product CRUD
   addProduct(p: Product) {
     if (!this.isAdmin) {
@@ -60,7 +60,7 @@ export class ProductsComponent implements OnInit {
       return;
     }
     this.productState.add(p);
-    this.showForm = false;  
+    this.showForm = false;
   }
 
   editProduct(p: Product) {
@@ -84,7 +84,7 @@ export class ProductsComponent implements OnInit {
     this.showForm = false;
     this.selectedProduct = undefined;
   }
-                                    
+
   deleteProduct(id: number) {
     if (!this.isAdmin) {
       this.toastr.error('Bạn không có quyền xoá sản phẩm');
@@ -107,7 +107,7 @@ export class ProductsComponent implements OnInit {
       next: cart => {
         this.cartState.setCart(cart);
         this.toastr.success('Đã thêm vào giỏ hàng');
-        
+
       },
       error: err => {
         this.toastr.error('Không thêm được vào giỏ');

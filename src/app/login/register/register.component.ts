@@ -4,22 +4,20 @@ import { UserService } from '../../shared/service/user.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
+const PASSWORD_PATTERN = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
+
 @Component({
   standalone: true,
   selector: 'app-register',
   imports: [ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
-  
 })
 
 export class RegisterComponent implements OnInit, OnDestroy {
-  username = '';
-  password = '';
   errorMessage = '';
   registerForm!: FormGroup;
-  // subscription tổng
-  sub$ = new Subscription();
+  private sub$ = new Subscription();
 
   constructor(
     private userService: UserService,
@@ -33,23 +31,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   private initRegisterForm(): void {
     this.registerForm = this.fb.group({
-      username: ['',[Validators.required, Validators.minLength(3)]],
-      password: ['',[
-        Validators.required,
-        Validators.pattern(this.passwordPattern())
-      ]],
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      password: ['', [Validators.required, Validators.pattern(PASSWORD_PATTERN)]]
     });
   }
-  private passwordPattern(): RegExp {
-    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
-  }
 
-  onRegister() {
+  onRegister(): void {
     if (this.registerForm.invalid) return;
+    
     const { username, password } = this.registerForm.value;
-    console.log('REGISTER SUCCESS: ', username);
 
-    const sampleSub$ = this.userService.register(this.username, this.password).subscribe({
+    const registerSub$ = this.userService.register(username, password).subscribe({
       next: () => {
         alert('Đăng ký thành công');
         this.router.navigate(['/login']);
@@ -58,10 +50,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.errorMessage = 'Đăng ký thất bại';
       }
     });
-    this.sub$.add(sampleSub$);
+    this.sub$.add(registerSub$);
   }
 
-  //hủy subscription
   ngOnDestroy(): void {
     this.sub$.unsubscribe();
   }

@@ -10,14 +10,14 @@ const STORAGE_KEY = 'orders';
 export class OrderService {
   private orders$ = new BehaviorSubject<Order[]>([]);
 
-  constructor(){
+  constructor() {
     const data = localStorage.getItem(STORAGE_KEY);
-    if(data){
+    if (data) {
       this.orders$.next(JSON.parse(data));
     }
   }
-  
-  getAll() {  
+
+  getAll() {
     return this.orders$.asObservable();
   }
 
@@ -34,7 +34,7 @@ export class OrderService {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   }
 
-  clear(){
+  clear() {
     this.orders$.next([]);
     localStorage.removeItem(STORAGE_KEY);
   }
@@ -43,9 +43,9 @@ export class OrderService {
     return this.orders$.value.find(o => o.id === id);
   }
 
-  updateStatus(id:number, status: OrderStatus){
+  updateStatus(id: number, status: OrderStatus) {
     const updated = this.orders$.value.map(o =>
-      o.id === id ? {...o,status} : o
+      o.id === id ? { ...o, status } : o
     );
     this.orders$.next(updated);
     localStorage.setItem('STORAGE_KEY', JSON.stringify(updated));

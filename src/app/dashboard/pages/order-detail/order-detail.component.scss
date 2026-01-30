@@ -1,11 +1,11 @@
-/* Container tổng */
+//Container tổng 
 :host {
   display: block;
   padding: 20px;
   background: #f9fafb;
 }
 
-/* Tiêu đề */
+// Tiêu đề 
 h2 {
   margin-bottom: 12px;
   color: #1f2937;
@@ -17,7 +17,7 @@ h3 {
   color: #374151;
 }
 
-/* Thông tin chung */
+// Thông tin chung 
 p {
   margin: 6px 0;
   font-size: 15px;
@@ -28,20 +28,20 @@ p {
   }
 }
 
-/* Trạng thái đơn hàng */
+// Trạng thái đơn hàng 
 strong.pending {
-  color: #f59e0b; // vàng
+  color: #f59e0b;
 }
 
 strong.completed {
-  color: #10b981; // xanh lá
+  color: #10b981;
 }
 
 strong.cancelled {
-  color: #ef4444; // đỏ
+  color: #ef4444;
 }
 
-/* Danh sách sản phẩm */
+// Danh sách sản phẩm 
 ul {
   list-style: none;
   padding: 0;
@@ -57,7 +57,7 @@ ul {
   }
 }
 
-/* Khu vực hành động */
+// Khu vực hành động 
 .action-buttons {
   margin-top: 24px;
   padding: 16px;
@@ -84,7 +84,7 @@ ul {
   }
 }
 
-/* Button xác nhận */
+// Button xác nhận 
 .btn-success {
   background: #10b981;
   color: white;
@@ -94,7 +94,7 @@ ul {
   }
 }
 
-/* Button hủy */
+// Button hủy
 .btn-danger {
   background: #ef4444;
   color: white;
@@ -104,7 +104,7 @@ ul {
   }
 }
 
-/* Thông báo khi đã xử lý */
+// Thông báo khi đã xử lý 
 .completed-message {
   margin-top: 24px;
   padding: 16px;

@@ -18,7 +18,7 @@ export class OrderDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private orderService: OrderService
-  ) {}
+  ) { }
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -27,12 +27,12 @@ export class OrderDetailComponent implements OnInit {
     })
   }
 
-  changeStatus(status: 'completed' | 'cancelled'){
+  changeStatus(status: 'completed' | 'cancelled') {
     if (!this.order) return;
 
-    if (status === 'cancelled'){
-      const ok = confirm ('Bạn có chắc muốn hủy đơn này');
-      if (!ok) return ;
+    if (status === 'cancelled') {
+      const ok = confirm('Bạn có chắc muốn hủy đơn này');
+      if (!ok) return;
     }
 
     this.orderService.updateStatus(this.order.id, status);

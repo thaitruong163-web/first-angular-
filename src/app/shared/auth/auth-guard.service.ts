@@ -1,6 +1,6 @@
 // src/app/auth/auth-guard.service.ts
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
 })
 
 export class AuthGuardService implements CanActivate {
-  constructor(public auth: AuthService, public router: Router) {}
+  constructor(public auth: AuthService, public router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 
@@ -19,7 +19,7 @@ export class AuthGuardService implements CanActivate {
       });
       return false;
     }
-    
+
     //check role
     const allowedRoles = route.data['roles'] as string[];
     if (allowedRoles && allowedRoles.length > 0) {

@@ -11,6 +11,6 @@ export class ForgotPassword {
   email = '';
 
   onSubmit() {
-    console.log('Reset password cho:', this.email);
+    // TODO: Implement forgot password logic
   }
 }

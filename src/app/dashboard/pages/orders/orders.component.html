@@ -26,7 +26,7 @@
       <td>{{ o.createdAt | date:'short' }}</td>
 
       <button *ngIf="o.status === 'pending'" (click)="paymentOrder(o.id)" class="payment-btn">Thanh toán</button>
- 
+
     </tr>
   </tbody>
 </table>

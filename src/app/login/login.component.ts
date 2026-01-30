@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
-import { UserService } from '../shared/service/user.service';
 import { AuthService } from '../shared/auth/auth.service';
 
 @Component({
@@ -13,26 +12,24 @@ import { AuthService } from '../shared/auth/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  username: string = '';
-  password: string = '';
-  errorMessage: string = '';
-  redirect: string = '';
+  username = '';
+  password = '';
+  errorMessage = '';
+  redirect = '';
 
   constructor(
-    private userService: UserService,
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
-  ngOnInit() {
-    // Check queryParams for redirect URL
+  ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.redirect = params['redirect'] || '';
     });
   }
 
-  onLogin() {
+  onLogin(): void {
     this.authService.login(this.username, this.password).subscribe({
       next: () => {
         if (this.redirect) {
@@ -46,5 +43,4 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-
 }

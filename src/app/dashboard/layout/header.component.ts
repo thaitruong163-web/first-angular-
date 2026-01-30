@@ -11,7 +11,7 @@ import { AuthService } from '../../shared/auth/auth.service';
 })
 
 export class HeaderComponent {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   logout() {
     this.authService.logout();

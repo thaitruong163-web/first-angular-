@@ -1,57 +1,42 @@
 <h2 class="page-title">Danh sách sản phẩm</h2>
 
 <div class="toolbar">
-  <input class="search-input" type="text" placeholder="Tìm sản phẩm" [(ngModel)]="keyword" (input)="applyFilter()" />
+  <div class="search-center">
+    <div class="search-box">
+      <input class="search-input" type="text" placeholder="Tìm sản phẩm" [(ngModel)]="keyword"
+        (input)="applyFilter()" />
+      <button class="search-btn"> <i class="fa-solid fa-magnifying-glass"></i> </button>
+    </div>
+  </div>
+  <button *ngIf="isAdmin" class="btnbtn-add" (click)="showForm = true">Thêm sản phẩm</button>
 
-  <!-- CHỈ ADMIN -->
-  <button *ngIf="isAdmin" class="btn btn-add" (click)="showForm = true">
-    + Thêm sản phẩm
-  </button>
 </div>
 
-<!-- FORM -->
 <div class="form-wrapper" *ngIf="showForm && isAdmin">
   <app-product-form [product]="selectedProduct"
     (submitForm)="selectedProduct ? updateProduct($event) : addProduct($event)" (cancel)="showForm = false">
   </app-product-form>
 </div>
 
-<table class="product-table">
-  <thead>
-    <tr>
-      <th>Ảnh</th>
-      <th>Tên</th>
-      <th>Giá</th>
-      <th>Giỏ hàng</th>
-      <th *ngIf="isAdmin" colspan="2">Quản lý</th>
-    </tr>
-  </thead>
+<div class="products-grid">
+  <div class="product-card" *ngFor="let p of filteredProducts">
+    <a class="card-link" [routerLink]="['/product', p.id]" target="_blank">
+      <div class="img-wrap">
+        <img [src]="p.thumbnail" alt="{{ p.title }}" />
+      </div>
+      <div class="card-body">
+        <h3 class="product-title" title="{{ p.title }}">{{ p.title }}</h3>
+        <div class="product-price">{{ p.price | number }} đ</div>
+      </div>
+    </a>
 
-  <tbody>
-    <tr *ngFor="let p of filteredProducts">
-      <td>
-        <img [src]="p.thumbnail" class="product-img" />
-      </td>
-      <td>
-        <a [routerLink]="['/product', p.id]" class="product-link" target="_blank">
-          {{ p.title }}
-        </a>
-      </td>
-      <td class="price">{{ p.price | number }} đ</td>
-
-      <td>
-        <button class="btn btn-cart" (click)="addToCart(p)">
-          Thêm vào giỏ
-        </button>
-      </td>
-
-      <td *ngIf="isAdmin">
+    <div class="card-footer">
+      <button class="btn btn-cart" (click)="addToCart(p); $event.stopPropagation(); $event.preventDefault();">Thêm vào
+        giỏ</button>
+      <div class="admin-btns" *ngIf="isAdmin">
         <button class="btn btn-edit" (click)="editProduct(p)">Sửa</button>
-      </td>
-
-      <td *ngIf="isAdmin">
         <button class="btn btn-delete" (click)="deleteProduct(p.id)">Xóa</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+      </div>
+    </div>
+  </div>
+</div>
