@@ -30,3 +30,8 @@
     </button>
   </div>
 </div>
+
+  <!-- Comments -->
+  <div *ngIf="!loading && product">
+    <app-comments [productId]="product.id"></app-comments>
+  </div>

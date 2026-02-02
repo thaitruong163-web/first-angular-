@@ -7,11 +7,12 @@ import { ProductState } from '../../../shared/state/product.state';
 import { CartState } from '../../../shared/state/cart.state';
 import { CartService } from '../../../shared/service/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { CommentsComponent } from './comments/comments.component';
 
 @Component({
     standalone: true,
     selector: 'app-product-detail',
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, CommentsComponent],
     templateUrl: './product-detail.component.html',
     styleUrl: './product-detail.component.scss'
 })

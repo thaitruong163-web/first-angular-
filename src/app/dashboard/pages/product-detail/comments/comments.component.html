@@ -1,0 +1,19 @@
+<div class="comments-wrapper">
+  <h3>Đánh giá & Bình luận</h3>
+
+  <div *ngIf="loading">Đang tải bình luận...</div>
+
+  <div *ngIf="!loading && comments.length === 0">Chưa có bình luận nào.</div>
+
+  <ul *ngIf="!loading && comments.length > 0" class="comment-list">
+    <li *ngFor="let c of comments" class="comment-item">
+      <div class="comment-user">{{ c.user?.username || 'Người dùng' }}</div>
+      <div class="comment-body">{{ c.body }}</div>
+    </li>
+  </ul>
+
+  <div class="comment-form">
+    <textarea [(ngModel)]="newComment" placeholder="Viết bình luận..." rows="3"></textarea>
+    <button class="btn" (click)="addComment()">Gửi</button>
+  </div>
+</div>
