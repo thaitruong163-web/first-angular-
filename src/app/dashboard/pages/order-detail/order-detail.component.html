@@ -10,10 +10,20 @@
     </li>
   </ul>
 
-  <div class="action-buttons" *ngIf="order.status === 'pending'">
+  <!-- Payment Form -->
+  <div *ngIf="showPayment && order.status === 'pending'" class="payment-section">
+    <app-payment 
+      [orderId]="order.id" 
+      [amount]="order.totalPrice"
+      (paymentSuccess)="onPaymentSuccess()"
+      (paymentCancel)="onPaymentCancel()">
+    </app-payment>
+  </div>
+
+  <div class="action-buttons" *ngIf="order.status === 'pending' && !showPayment">
     <h3>Xác nhận thanh toán:</h3>
-    <button (click)="changeStatus('completed')" class="btn-success">
-      Xác nhận thanh toán
+    <button (click)="openPayment()" class="btn-success">
+      💳 Thanh toán
     </button>
 
     <button (click)="changeStatus('cancelled')" class="btn-danger">

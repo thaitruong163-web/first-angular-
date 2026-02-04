@@ -1,0 +1,53 @@
+<div class="payment-wrapper">
+  <h2>Thanh toán đơn hàng</h2>
+
+  <div class="payment-summary">
+    <p><strong>Mã đơn hàng:</strong> {{ orderId }}</p>
+    <p><strong>Số tiền:</strong> {{ amount | number }} đ</p>
+  </div>
+
+  <div class="payment-form">
+    <div class="form-group">
+      <label>Phương thức thanh toán:</label>
+      <select [(ngModel)]="paymentMethod" class="form-control">
+        <option value="credit-card">Thẻ tín dụng</option>
+        <option value="debit-card">Thẻ ghi nợ</option>
+        <option value="bank-transfer">Chuyển khoản ngân hàng</option>
+        <option value="e-wallet">Ví điện tử</option>
+      </select>
+    </div>
+
+    <div *ngIf="paymentMethod === 'credit-card' || paymentMethod === 'debit-card'" class="card-section">
+      <div class="form-group">
+        <label>Số thẻ:</label>
+        <input type="text" [(ngModel)]="cardNumber" placeholder="1234 5678" class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label>Tên chủ thẻ:</label>
+        <input type="text" [(ngModel)]="cardHolder" placeholder="John Doe" class="form-control" />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group half">
+          <label>Ngày hết hạn (MM/YY):</label>
+          <input type="text" [(ngModel)]="expiryDate" placeholder="12/25" class="form-control" />
+        </div>
+        <div class="form-group half">
+          <label>CVV:</label>
+          <input type="text" [(ngModel)]="cvv" placeholder="123" class="form-control" />
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+
+    <div class="button-group">
+      <button (click)="processPayment()" [disabled]="loading" class="btn btn-primary">
+        <span *ngIf="!loading">Xác nhận thanh toán</span>
+        <span *ngIf="loading">Đang xử lý...</span>
+      </button>
+      <button (click)="cancel()" [disabled]="loading" class="btn btn-secondary">Hủy</button>
+    </div>
+  </div>
+</div>

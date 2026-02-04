@@ -46,12 +46,10 @@ export class CommentsComponent implements OnChanges {
 
         this.commentService.postComment(this.productId, this.newComment.trim(), username).subscribe({
             next: (c) => {
-                // prepend comment
                 this.comments = [c, ...this.comments];
                 this.newComment = '';
             },
             error: () => {
-                // best-effort: add locally
                 const fake: Comment = {
                     id: Date.now(),
                     body: this.newComment.trim(),
