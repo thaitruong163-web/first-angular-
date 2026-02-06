@@ -7,8 +7,9 @@
 
 // Tiêu đề 
 h2 {
+  font-size: 30px;
   margin-bottom: 12px;
-  color: #1f2937;
+  color: #0b63de;
 }
 
 h3 {
@@ -53,7 +54,7 @@ ul {
     background: #ffffff;
     border-radius: 6px;
     border: 1px solid #e5e7eb;
-    font-size: 14px;
+    font-size: 18px;
   }
 }
 
@@ -88,6 +89,7 @@ ul {
 .btn-success {
   background: #10b981;
   color: white;
+  font-size: 18px;
 
   &:hover {
     background: #059669;
@@ -98,6 +100,7 @@ ul {
 .btn-danger {
   background: #ef4444;
   color: white;
+  font-size: 18px;
 
   &:hover {
     background: #dc2626;

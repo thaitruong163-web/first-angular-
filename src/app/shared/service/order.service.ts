@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Order, OrderStatus } from '../models/order.model';
+import { map } from 'rxjs/operators';
 
 const STORAGE_KEY = 'orders';
 
@@ -21,11 +22,6 @@ export class OrderService {
     return this.orders$.asObservable();
   }
 
-  add(order: Order) {
-    const current = this.orders$.value;
-    this.orders$.next([order, ...current]);
-  }
-
   create(order: Order) {
     const current = this.orders$.value;
     const updated = [...current, order];
@@ -40,15 +36,15 @@ export class OrderService {
   }
 
   getById(id: number) {
-    return this.orders$.value.find(o => o.id === id);
+    return this.orders$.pipe(
+      map(orders => orders.find(o => o.id === id))
+    );
   }
 
   updateStatus(id: number, status: OrderStatus) {
-    const updated = this.orders$.value.map(o =>
-      o.id === id ? { ...o, status } : o
-    );
+    const updated = this.orders$.value.map(o => o.id === id ? { ...o, status } : o);
     this.orders$.next(updated);
-    localStorage.setItem('STORAGE_KEY', JSON.stringify(updated));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   }
 
 }

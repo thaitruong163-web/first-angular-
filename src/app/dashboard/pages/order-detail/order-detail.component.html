@@ -1,5 +1,5 @@
 <div *ngIf="order">
-  <h2>Chi tiết đơn hàng #{{ order.id }}</h2>
+  <h2>Chi tiết đơn hàng </h2>
   <p>Tổng tiền: <strong>{{ order.totalPrice | number }} đ</strong></p>
   <p>Trạng thái: <strong [ngClass]="order.status">{{ order.status }}</strong></p>
 

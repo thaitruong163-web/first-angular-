@@ -18,25 +18,29 @@ export class OrdersComponent implements OnInit {
   orders: Order[] = [];
   filteredOrders: Order[] = [];
   statusFilter: string = 'all';
+  private orderCreated = false;
 
   constructor(private cartState: CartState, private router: Router, private orderService: OrderService) { }
 
   ngOnInit() {
+    this.orderService.getAll().subscribe(orders => {
+      this.orders = orders;
+      this.applyFilter();
+    });
+
     this.cartState.getCart().subscribe(cart => {
-      if (!cart) return;
+      if (!cart || this.orderCreated) return;
 
       const fakeOrder: Order = {
         id: Date.now(),
         totalPrice: cart.total,
-        status: 'pending', // mặc định
+        status: 'pending', 
         createdAt: new Date(),
         products: cart.products
       };
 
-      this.orders = [fakeOrder];
-      this.applyFilter();
-
-      this.orderService.add(fakeOrder);
+      this.orderService.create(fakeOrder);
+      this.orderCreated = true;
     });
   }
 

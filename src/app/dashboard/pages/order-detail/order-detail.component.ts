@@ -18,16 +18,18 @@ export class OrderDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private orderService: OrderService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.orderService.getAll().subscribe(orders => {
-      this.order = orders.find(o => o.id === id);
-    })
+    console.log('ORDER ID FROM URL:', id);
+    this.orderService.getById(id).subscribe(order => {
+      this.order = order;
+    });
   }
+
+
 
   openPayment(): void {
     this.showPayment = true;
